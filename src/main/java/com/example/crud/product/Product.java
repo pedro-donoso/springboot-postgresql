@@ -1,8 +1,18 @@
 package com.example.crud.product;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "products") // Especifica el nombre de la tabla
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private Float price;
@@ -65,5 +75,16 @@ public class Product {
 
     public void setAntiguedad(int antiguedad) {
         this.antiguedad = antiguedad;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", fecha=" + fecha +
+                ", antiguedad=" + antiguedad +
+                '}';
     }
 }
