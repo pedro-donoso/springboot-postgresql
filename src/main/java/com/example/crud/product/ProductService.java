@@ -29,7 +29,7 @@ public class ProductService {
 
         HashMap<String, Object> datos = new HashMap<>();
 
-        if(res.isPresent()){
+        if(res.isPresent() && product.getId() == null){
             datos.put("error",true);
             datos.put("message","Ya existe un producto con ese nombre");
             return new ResponseEntity<>(
@@ -37,9 +37,13 @@ public class ProductService {
                     HttpStatus.CONFLICT
             );
         }
+        datos.put("message","Se guardó con éxito");
+        if(product.getId()!=null){
+            datos.put("message","Se actualizó con éxito");
+        }
+
         productRepository.save(product);
-        datos.put("data",datos);
-        datos.put("message","Se ha registrado el producto");
+        datos.put("data",product);
         return new ResponseEntity<>(
                 datos,
                 HttpStatus.CREATED
