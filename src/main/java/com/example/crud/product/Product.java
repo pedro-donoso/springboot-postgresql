@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class Product {
     private Long id;
+    private String name;
     private Float price;
     private LocalDate fecha;
     private int antiguedad;
@@ -13,12 +14,14 @@ public class Product {
 
     public Product(Long id, String name, Float price, LocalDate fecha, int antiguedad) {
         this.id = id;
+        this.name = name;
         this.price = price;
         this.fecha = fecha;
         this.antiguedad = antiguedad;
     }
 
     public Product(String name, Float price, LocalDate fecha, int antiguedad) {
+        this.name = name;
         this.price = price;
         this.fecha = fecha;
         this.antiguedad = antiguedad;
@@ -30,6 +33,14 @@ public class Product {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Float getPrice() {

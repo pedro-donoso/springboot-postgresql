@@ -12,7 +12,7 @@ public class ProductService {
         return  List.of(
                 new Product(
                         2541L,
-                        "Laptop",
+                        "Laptop MAC",
                         500F,
                         LocalDate.of(2025, Month.MARCH,5),
                         2
