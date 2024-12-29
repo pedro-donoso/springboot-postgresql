@@ -1,15 +1,11 @@
 package com.example.crud.product;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-
+import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.time.Period;
 
 @Entity
-@Table(name = "products") // Especifica el nombre de la tabla
+@Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,24 +13,24 @@ public class Product {
     private String name;
     private Float price;
     private LocalDate fecha;
+
+    @Transient
     private int antiguedad;
 
     public Product() {
     }
 
-    public Product(Long id, String name, Float price, LocalDate fecha, int antiguedad) {
+    public Product(Long id, String name, Float price, LocalDate fecha) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.fecha = fecha;
-        this.antiguedad = antiguedad;
     }
 
-    public Product(String name, Float price, LocalDate fecha, int antiguedad) {
+    public Product(String name, Float price, LocalDate fecha) {
         this.name = name;
         this.price = price;
         this.fecha = fecha;
-        this.antiguedad = antiguedad;
     }
 
     public Long getId() {
@@ -70,11 +66,7 @@ public class Product {
     }
 
     public int getAntiguedad() {
-        return antiguedad;
-    }
-
-    public void setAntiguedad(int antiguedad) {
-        this.antiguedad = antiguedad;
+        return Period.between(this.fecha, LocalDate.now()).getYears();
     }
 
     @Override
@@ -84,7 +76,7 @@ public class Product {
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", fecha=" + fecha +
-                ", antiguedad=" + antiguedad +
+                ", antiguedad=" + getAntiguedad() +
                 '}';
     }
 }
