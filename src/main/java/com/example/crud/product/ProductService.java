@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,16 +27,21 @@ public class ProductService {
     public ResponseEntity<Object> newProduct(Product product) {
         Optional<Product> res = productRepository.findProductByName(product.getName());
 
-
+        HashMap<String, Object> datos = new HashMap<>();
 
         if(res.isPresent()){
+            datos.put("error",true);
+            datos.put("message","Ya existe un producto con ese nombre");
             return new ResponseEntity<>(
+                    datos,
                     HttpStatus.CONFLICT
             );
         }
         productRepository.save(product);
+        datos.put("data",datos);
+        datos.put("message","Se ha registrado el producto");
         return new ResponseEntity<>(
-                product,
+                datos,
                 HttpStatus.CREATED
         );
     }
